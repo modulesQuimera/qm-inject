@@ -1,7 +1,7 @@
 <script type="text/javascript">
     RED.nodes.registerType('inject-special',{
         category: 'Inject',
-        color: '#F3B567',
+        color: '#FF8C00',
         defaults: {
             exportMode:{
                 value: "false",
@@ -9,9 +9,9 @@
         },
         inputs:0,
         outputs:1,
-        icon: "arrow-in.png",
-        label: "inject",
-        paletteLabel: "inject-pulse",
+        icon: "./icons/Start.svg",
+        label: "Start",
+        paletteLabel: "Inject Pulse",
         button: {
             enabled: function() {
                 return !this.changed

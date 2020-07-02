@@ -37,8 +37,7 @@ module.exports = function(RED) {
                         },
                     ],
                     "tester": "",
-                    "model": "",
-                    "station":""
+                    "model": ""
                 }
                 globalContext.set("exportFile", exportFile)
             }
