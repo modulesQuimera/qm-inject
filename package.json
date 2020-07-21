@@ -1,6 +1,6 @@
 {
   "name": "qm-hub-inject",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "inject module - Node-Red",
   "main": "inject-special.js",
   "scripts": {
