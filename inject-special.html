@@ -13,7 +13,7 @@
         inputs:0,
         outputs:1,
         icon: "Start.svg",
-        label: function() { return this.name ||  "Start"},
+        label: function() { return this.name? "Start - " + this.name: "Start"},
         paletteLabel: "Start",
         button: {
             enabled: function() {

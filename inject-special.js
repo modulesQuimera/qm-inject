@@ -9,15 +9,18 @@ module.exports = function(RED) {
 
         node.on('input', function(msg, send, done) {
             this.serialConfig = RED.nodes.getNode(config.jeb);
-            console.log(this.serialConfig)
-            send = send || function() { node.send.apply(node, arguments) }
+            console.log(this.serialConfig);
+            send = send || function() { node.send.apply(node, arguments);};
             var globalContext = node.context().global;
             globalContext.set("exportMode", node.exportMode);
             globalContext.set("currentMode", "test");
-            file = globalContext.get("exportFile")
+            file = globalContext.get("exportFile");
             
             if(file === undefined){
                 var exportFile = {
+                    "tester": "",
+                    "model": "",
+                    // "begin": [],
                     "slots": [
                         {
                             "jig_test": [],
@@ -34,19 +37,18 @@ module.exports = function(RED) {
                         {
                             "jig_test": [],
                             "jig_error": []
-                        },
+                        }
                     ],
-                    "tester": "",
-                    "model": ""
-                }
-                globalContext.set("exportFile", exportFile)
+                    // "end": []
+                };
+                globalContext.set("exportFile", exportFile);
             }
 
-            let obj = {
+            var obj = {
                 payload:{
                     exportMode: node.exportMode
                 }
-            }
+            };
 
             send(obj);
 
@@ -55,6 +57,5 @@ module.exports = function(RED) {
             }
         });
     }
-
     RED.nodes.registerType("inject-special", InjectSpecialNode);
-}
+};
