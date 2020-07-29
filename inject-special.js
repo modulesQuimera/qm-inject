@@ -16,11 +16,14 @@ module.exports = function(RED) {
             globalContext.set("currentMode", "test");
             file = globalContext.get("exportFile");
             
+            globalContext.set("send_to_jig", 0);
+            globalContext.set("export_file", 0);
+            globalContext.set("display_config", 0);
+            
             if(file === undefined){
                 var exportFile = {
                     "tester": "",
                     "model": "",
-                    // "begin": [],
                     "slots": [
                         {
                             "jig_test": [],
@@ -39,7 +42,6 @@ module.exports = function(RED) {
                             "jig_error": []
                         }
                     ],
-                    // "end": []
                 };
                 globalContext.set("exportFile", exportFile);
             }
