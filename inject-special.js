@@ -9,7 +9,6 @@ module.exports = function(RED) {
 
         node.on('input', function(msg, send, done) {
             this.serialConfig = RED.nodes.getNode(config.jeb);
-            console.log(this.serialConfig);
             send = send || function() { node.send.apply(node, arguments);};
             var globalContext = node.context().global;
             globalContext.set("exportMode", node.exportMode);
@@ -25,6 +24,8 @@ module.exports = function(RED) {
                 var exportFile = {
                     "tester": "",
                     "model": "",
+                    "instructions": [],
+                    "firmwares": [],
                     "slots": [
                         {"jig_test": [],"jig_error": []},
                         {"jig_test": [],"jig_error": []},
@@ -37,190 +38,12 @@ module.exports = function(RED) {
             
             if(map === undefined){
                 var map = {
-                    "multimeter": {
-                        "get_current": [],
-                        "get_phase": [],
-                        "get_voltage": [],
-                        "get_voltage_diff": []
-                    },
-                    "ac_power": [
-                        [
-                            {"pin": "","board": "","user": ""},
-                            {"pin": "","board": "","user": ""},
-                            {"pin": "","board": "","user": ""},
-                            {"pin": "","board": "","user": ""}
-                        ],
-                        [
-                            {"pin": "","board": "","user": ""},
-                            {"pin": "","board": "","user": ""},
-                            {"pin": "","board": "","user": ""},
-                            {"pin": "","board": "","user": ""}
-                        ],
-                        [
-                            {"pin": "","board": "","user": ""},
-                            {"pin": "","board": "","user": ""},
-                            {"pin": "","board": "","user": ""},
-                            {"pin": "","board": "","user": ""}
-                        ],
-                        [
-                            {"pin": "","board": "","user": ""},
-                            {"pin": "","board": "","user": ""},
-                            {"pin": "","board": "","user": ""},
-                            {"pin": "","board": "","user": ""}
-                        ],
-                        [
-                            {"pin": "","board": "","user": ""},
-                            {"pin": "","board": "","user": ""},
-                            {"pin": "","board": "","user": ""},
-                            {"pin": "","board": "","user": ""}
-                        ],
-                        [
-                            {"pin": "","board": "","user": ""},
-                            {"pin": "","board": "","user": ""},
-                            {"pin": "","board": "","user": ""},
-                            {"pin": "","board": "","user": ""}
-                        ],
-                        [
-                            {"pin": "","board": "","user": ""},
-                            {"pin": "","board": "","user": ""},
-                            {"pin": "","board": "","user": ""},
-                            {"pin": "","board": "","user": ""}
-                        ],
-                        [
-                            {"pin": "","board": "","user": ""},
-                            {"pin": "","board": "","user": ""},
-                            {"pin": "","board": "","user": ""},
-                            {"pin": "","board": "","user": ""}
-                        ]
-                    ],
-                    "gpio": [
-                        [
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""}
-                        ],
-                        [
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""}
-                        ],
-                        [
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""}
-                        ],
-                        [
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""}
-                        ],
-                        [
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""}
-                        ],
-                        [
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""}
-                        ],
-                        [
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""}
-                        ],
-                        [
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""},
-                            {"pinA":"","boardA": "","pinB": "", "boardB": ""}
-                        ]
-                    ],
-                    "communication": [],
-                    "mux": [],
-                    "relay": {
-                        "na": [],
-                        "nf": []
-                    }
+                    "multimeter":    [ [],[],[],[],[],[],[],[],[],[] ],
+                    "ac_power":      [ [],[],[],[],[],[],[],[],[],[] ],
+                    "gpio":          [ [],[],[],[],[],[],[],[],[],[] ],
+                    "communication": [ [],[],[],[],[],[],[],[],[],[] ],
+                    "mux":           [ [],[],[],[],[],[],[],[],[],[] ],
+                    "relay":         [ [],[],[],[],[],[],[],[],[],[] ],
                 };
                 globalContext.set("map", map);
             }

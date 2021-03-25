@@ -1,6 +1,6 @@
 {
   "name": "qm-inject",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "inject module - Node-Red",
   "main": "inject-special.js",
   "scripts": {
@@ -8,15 +8,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/modulesQuimera/qm-hub-inject.git"
+    "url": "git+https://github.com/modulesQuimera/qm-inject.git"
   },
   "keywords": ["quimera", "hub", "JIG"],
   "author": "HUB-LSE",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/modulesQuimera/qm-hub-inject/issues"
+    "url": "https://github.com/modulesQuimera/qm-inject/issues"
   },
-  "homepage": "https://github.com/modulesQuimera/qm-hub-inject#readme",
+  "homepage": "https://github.com/modulesQuimera/qm-inject#readme",
   "node-red": {
 		"nodes": {
 			"inject": "inject-special.js"
