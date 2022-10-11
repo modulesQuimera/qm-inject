@@ -20,22 +20,21 @@ module.exports = function(RED) {
             globalContext.set("export_file", 0);
             globalContext.set("display_config", 0);
             
-            if(file === undefined){
-                var exportFile = {
-                    "tester": "",
-                    "model": "",
-                    "instructions": [],
-                    "firmwares": [],
-                    "slots": [
-                        {"jig_test": [],"jig_error": []},
-                        {"jig_test": [],"jig_error": []},
-                        {"jig_test": [],"jig_error": []},
-                        {"jig_test": [],"jig_error": []}
-                    ],
-                };
-                globalContext.set("exportFile", exportFile);
-            }
             
+            var exportFile = {
+                "tester": "",
+                "model": "",
+                "instructions": [],
+                "firmwares": [],
+                "slots": [
+                    {"jig_test": [],"jig_error": []},
+                    {"jig_test": [],"jig_error": []},
+                    {"jig_test": [],"jig_error": []},
+                    {"jig_test": [],"jig_error": []}
+                ],
+            };
+            globalContext.set("exportFile", exportFile);
+
             if(map === undefined){
                 var map = {
                     "multimeter":    [ [],[],[],[],[],[],[],[],[],[] ],
